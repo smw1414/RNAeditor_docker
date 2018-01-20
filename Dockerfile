@@ -79,9 +79,9 @@ COPY RNAEditor.py /apps/RNAEditor
 
 WORKDIR /data
 
-RUN adduser --system --group --shell /bin/sh auser \
- && mkdir /home/auser/bin
-USER auser
+#RUN adduser --system --group --shell /bin/sh auser \
+# && mkdir /home/auser/bin
+#USER auser
 
 
 
