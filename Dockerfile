@@ -1,7 +1,7 @@
 # Pull base image.
 FROM hdf87ery/ubuntu_dev
 
-LABEL maintainer="Shao-Min Wu" 
+LABEL maintainer="Shao-Min Wu" \
       contact="hdf87ery@hotmail.com"
 
 # Define working directory.
