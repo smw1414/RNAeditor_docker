@@ -2,7 +2,7 @@
 FROM hdf87ery/ubuntu_dev
 
 LABEL maintainer="Shao-Min Wu" 
-      contact="hdf87ery@hotmail.com
+      contact="hdf87ery@hotmail.com"
 
 # Define working directory.
 RUN mkdir /data -p && mkdir /apps -p
