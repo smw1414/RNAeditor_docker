@@ -6,24 +6,24 @@ LABEL maintainer="Shao-Min Wu" \
 
 # Define working directory.
 RUN mkdir /data -p && mkdir /apps -p
-WORKDIR /apps
 
+WORKDIR /apps
 
 RUN apt install -y python-tk \
                    aria2
+				   
 # Install requirements
 RUN git clone https://github.com/djhn75/RNAEditor.git
 RUN git clone https://github.com/samtools/htslib.git
 RUN git clone https://github.com/samtools/bcftools.git
 RUN git clone https://github.com/samtools/samtools.git
 RUN git clone https://github.com/arq5x/bedtools2.git
-#RUN git clone https://github.com/lh3/bwa.git
-
-#RUN  cp RNAEditor/* /data -r
+# RUN git clone https://github.com/lh3/bwa.git
 
 # config bcftools
 RUN cd bcftools; make -j6 && \
   mv  bcftools /usr/local/bin/
+  
 # config samtools
 RUN cd samtools && \
   autoheader && \
@@ -31,31 +31,32 @@ RUN cd samtools && \
   ./configure && \
   make -j6 && \
   mv samtools /usr/local/bin/
+  
 # config bedtools 
 RUN cd bedtools2 && \
- make -j6 && \
- mv bin/* /usr/local/bin/
+  make -j6 && \
+  mv bin/* /usr/local/bin/
+ 
 # config bwa
 # RUN cd bwa && \
-  # make -j6 && \
-  # mv bwa /usr/local/bin/
+#  make -j6 && \
+#  mv bwa /usr/local/bin/
 
-WORKDIR /apps
-
+  
 # config bwa
-#COPY bwakit-0.7.15_x64-linux.tar.bz2 . 
+# COPY bwakit-0.7.15_x64-linux.tar.bz2 . 
 RUN wget https://sourceforge.net/projects/bio-bwa/files/bwakit/bwakit-0.7.15_x64-linux.tar.bz2
 RUN tar jxf bwakit-0.7.15_x64-linux.tar.bz2 && \
   mv bwa.kit/bwa /usr/local/bin/
 
 # config blat
-#COPY blat . 
+# COPY blat . 
 RUN wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/blat/blat
 RUN chmod +x blat && \
   mv blat /usr/local/bin/
 
 # config GATK 
-#COPY GenomeAnalysisTK-3.5-0-g36282e4.tar.bz2 . 
+# COPY GenomeAnalysisTK-3.5-0-g36282e4.tar.bz2 . 
 RUN aria2c "https://software.broadinstitute.org/gatk/download/auth?package=GATK-archive&version=3.5-0-g36282e4"
 RUN tar jxf GenomeAnalysisTK-3.5-0-g36282e4.tar.bz2 && \
   mkdir /usr/local/bin/GATK/ -p && \
@@ -82,9 +83,9 @@ COPY RNAEditor.py /apps/RNAEditor
 
 WORKDIR /data
 
-#RUN adduser --system --group --shell /bin/sh auser \
+# RUN adduser --system --group --shell /bin/sh auser \
 # && mkdir /home/auser/bin
-#USER auser
+# USER auser
 
 
 
@@ -95,4 +96,4 @@ ENV PATH="/apps/RNAEditor:${PATH}"
 
 # VOLUME /data
 # Define default command.
-#CMD ["bash"]
+# CMD ["bash"]
